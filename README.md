@@ -11,14 +11,21 @@ type num2 = Unpack<int2> // expect -1 拆包，返回一个字面量-1
 ```
 ## 比较
 ```ts
-type comp = Compare<Int<0>, Int<0>> // expect true
-type comp1 = Compare<Int<0>, Int<-1>> // expect false
+type comp = Equal<Int<0>, Int<0>> // expect true
+type comp1 = Equal<Int<0>, Int<-1>> // expect false
 
 type comp2 = LessThan<Int<0>, Int<0>> // expect false
 type comp3 = LessThan<Int<0>, Int<-1>> // expect false
 type comp4 = LessThan<Int<-1>, Int<-3>> // expect false
 type comp5 = LessThan<Int<-2>, Int<20>> // expect true
 type comp6 = LessThan<Int<-2>, Int<-1>> // expect true
+
+type comp7 = MoreThan<Int<2>, Int<1>> // expect true
+
+// 三向比较
+type comp8 = Compare<Int<0>, Int<1>>  // expect -1
+type comp9 = Compare<Int<1>, Int<1>>  // expect 0
+type comp10 = Compare<Int<2>, Int<1>>  // expect 1
 ```
 ## 四则运算
 ```ts
@@ -35,7 +42,7 @@ type res3 = Unpack<plus3> // -9
 type subtract1 = Subtract<int> // -1
 type res4 = Unpack<subtract1> // 0
 type subtract2 = Subtract<int,Int<10>>
-type res5 = Unpacksubtract2> // -9
+type res5 = Unpack<subtract2> // -9
 type subtract3 =Subtract<int,Int<-10>>
 type res6 = Unpack<subtract3> // 11
 

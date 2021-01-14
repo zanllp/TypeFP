@@ -57,7 +57,7 @@ export type Unpack<T extends IntType> = T[1] extends true ? Len<T[0]> : `-${Len<
 export type Index<T extends BaseType, I extends number> = T[I]
 
 
-export type Compare<A, B> = A extends B ? true : false
+export type Equal<A, B> = A extends B ? true : false
 
 /**
  * 无符号比较
@@ -85,6 +85,20 @@ export type LessThan<A extends IntType, B extends IntType> =
             ? true
             : LessThanU<[B[0], true], [A[0], true]>
 
+
+export type MoreThan<A extends IntType, B extends IntType> = 
+    Equal<A, B> extends true
+        ? false
+        : LessThan<A, B> extends true
+            ? false
+            : true
+
+export type Compare<A extends IntType, B extends IntType> = 
+    Equal<A, B> extends true
+        ? 0
+        : LessThan<A, B> extends true
+            ? -1
+            : 1
 
 /**
  * 对一个int进行加法，返回一个新的int
