@@ -61,14 +61,44 @@ type res13 = Unpack<Divide<Int<5>, Int<-2>>> // expect -2
 type mix = Multiply<Int<2>, Plus<Divide<Int<5>, Int<2>>>>
 type res14 = Unpack<mix> // expect 6
 ```
+## 字符串
+```ts
+type str = 'hello'
+
+type str2 = Concat<[]> // expect ''
+
+type str3 = Concat<['hello', ' ', 'world']>  // expect 'hello world'
+
+type str4 = Join<[1, 2, 3, 4, 5]> // '1,2,3,4,5'
+
+type str5 = Join<[2021, 1, 16, 'ciallo'], '-'> // '2021-1-16-ciallo'
+
+type splitArr0 = Split<str4> // expect ['1','2','3','4','5']
+
+type splitArr1 = Split<str5, '-'> // expect ['2021','1','16','ciallo']
+
+type len = StrLen<str> // expectn 5
+
+type char = CharAt<str, 2> // expect 'l'
+
+type substr = SubStr<str, Int<1>> // expect 'ello'
+```
+
 ## 数组操作
 ```ts
 type arr = [1, 2, 3, 'hello', 'world'] // 定义一个不可变数组
+
 type arr1 = Shift<arr> // expect [2,3,'hello','world'] 去掉数组最前面的元素，并返回一个新数组
+
 type lastItem = Last<arr> // 返回数组最后一个元素，expect 'world'
+
 type len = Len<arr1> // expect 4
+
 type item0 = Index<arr1, 0> //  2
+
 type limitArr = MaxLen<arr, Int<2>> // 去掉期望长度外的其他部分 expect [1,2]
+
 type slice1 = Slice<arr, Int<2>> // 和js的slice一样, expect [3,'hello','world']
+
 type slice2 = Slice<arr, Int<2>, Int<2>> // 和js的slice一样, expect [3,'hello']
 ```

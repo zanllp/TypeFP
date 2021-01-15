@@ -195,3 +195,32 @@ export type Slice<T extends BaseType, S extends IntType, L extends IntType = Int
     S extends Int<0>
         ? MaxLen<T, L>
         : Slice<Shift<T>, Subtract<S>, L>
+
+        
+/**
+ * 字符串分割，
+ * @param T 字符串
+ * @param S 分隔符
+ */
+export type Split<T extends string, S extends string = ',', R extends string[] = []> =
+    T extends `${infer U}${S}${infer N}` ? Split<N, S, [...R, U]> : [...R, T]
+
+/**
+* 字符串长度
+*/
+export type StrLen<T extends string> = Len<Shift<Split<T, ''>>>
+
+export type CharAt<T extends string, I extends number> = Shift<Split<T, ''>>[I]
+
+export type Concat<T extends (string | number)[], S extends string = '', R extends string = '', L extends IntType = Int<0>> =
+    T['length'] extends 0
+        ? ''
+        : L extends Int<T['length']>
+            ? R
+            : L extends Int<0>
+                ? Concat<T, S, `${T[0]}`, Plus<L>>
+                : Concat<T, S, `${R}${S}${T[Unpack<[L[0], true]>]}`, Plus<L>>
+
+export type Join<T extends (string | number)[], S extends string = ','> = Concat<T, S>
+
+export type SubStr<T extends string, S extends IntType, L extends IntType = Int<-1>> = Concat<Slice<Split<T, ''>, S, L>>
