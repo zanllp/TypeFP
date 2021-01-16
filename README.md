@@ -1,7 +1,6 @@
 # TypeFP
 类型体操实践，将typescript的type部分拿来当函数式语言使用。欢迎pr补充
-## 基本数字操作
-## 定义，拆包
+## 定义Int，拆包
 ```ts
 type int = Int<20> // 定义一个不可变的int
 type num = Unpack<int> // expect 20 拆包，返回一个数字字面量20
