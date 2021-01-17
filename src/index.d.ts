@@ -52,10 +52,14 @@ export type Len<T extends BaseType> = T['length']
 export type Unpack<T extends IntType> = T[1] extends true ? Len<T[0]> : `-${Len<T[0]>}`
 
 /**
- * []的alias
+ * 类似[]，不过支持负向
  */
-export type Index<T extends BaseType, I extends number> = T[I]
-
+export type Index<T extends BaseType, I extends IntType, D extends IntType = Int<-1>> = 
+    I[1] extends false
+        ? Int<-1> extends D
+            ? Index<T, I, Int<T['length']>>
+            : Index<T, Plus<I, D>>
+        : T[Unpack<[I[0] ,true]>]
 
 export type Equal<A, B> = A extends B ? true : false
 

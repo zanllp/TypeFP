@@ -93,7 +93,9 @@ type lastItem = Last<arr> // 返回数组最后一个元素，expect 'world'
 
 type len = Len<arr1> // expect 4
 
-type item0 = Index<arr1, 0> //  2
+type item0 = Index<arr1, Int<0>> //  2
+
+type item_2 = Index<arr1, Int<-2>> //  'hello'
 
 type limitArr = MaxLen<arr, Int<2>> // 去掉期望长度外的其他部分 expect [1,2]
 
